@@ -1,58 +1,55 @@
-// Write a function that plays a single round of Rock Paper Scissors
+// Game memory
+let currentRound = 0;
+let userScore = 0;
+let computerScore = 0;
 
-// 1. Take 2 parameters: playerSelection and computerSelection
-// 2. Create an input prompt that takes in the user's playerSelection
-// 3. Create a function that chooses rock, paper or scissors randomly
-// 4. Assign the random value to computerSelection
-// 5. Set up a logical if sequence to determine the winner
-// 6. Output a string e.g. "You Lose! Paper beats Rock" depending on outcome
-// 7. Use string methods to allow caSE inseNsitive inout to userSelection
-// 
-
+// DOM Elements
 const buttons = document.querySelectorAll('button');
+const roundDisplay = document.getElementById('round');
+const userDisplay = document.getElementById('user-score');
+const computerDisplay = document.getElementById('computer-score');
+const gameStatus = document.getElementById('game-status');
 
+// Game
 buttons.forEach((button) => {
   button.addEventListener('click', (event) => {
-    playRound(event.target.innerText, getComputerChoice());
+    const result = playRound(event.target.innerText.toLowerCase(), getComputerChoice());
+    currentRound += 1;
+    if (currentRound <= 5) {
+      //Update the stored scores
+      userScore += result.userScore;
+      computerScore += result.computerScore;
+      //Update the DOM to reflect the scores
+      roundDisplay.innerText =  currentRound;
+      userDisplay.innerText = userScore;
+      computerDisplay.innerText = computerScore;
+      gameStatus.innerText = result.message;
+    } else {
+      if (userScore > computerScore) {
+        gameStatus.innerText = 'User wins! Make another selection to play another round!'
+      } else if (userScore < computerScore) {
+        gameStatus.innerText = 'Computer wins :( Make another selection to play another round!'
+      } else {
+        gameStatus.innerText = '5 Round Draw! What an unlikely event!'
+      };
+      //Reset the scores
+      currentRound = 0;
+      userScore = 0;
+      computerScore = 0;
+      //Update the DOM to reflect the scores
+      roundDisplay.innerText =  currentRound;
+      userDisplay.innerText = userScore;
+      computerDisplay.innerText = computerScore;
+      // gameStatus.innerText = 'Lets play another round!';
+    }
+    
   });
 });
 
-game();
-
-function game() {
-
-  let currentRound = 0;
-  let userScore = 0;
-  let computerScore = 0;
-  let result;
-
-
-    // for (i = 0; i < 5; i++) {
-    //   result = playRound(getComputerChoice());
-    //   currentRound++;
-    //   userScore += result.userScore;
-    //   computerScore += result.computerScore;
-  
-    //   console.log(
-    //     `Current round: ${currentRound} 
-    //      User score = ${userScore},
-    //      Computer score = ${computerScore}`)
-  
-    //   alert(result.message);
-    // }
-
-  if (userScore > computerScore) {
-    console.log(`User wins!: ${userScore} to ${computerScore}`)
-  } else if (userScore < computerScore) {
-    console.log(`User loses!: ${userScore} to ${computerScore}`)
-  } else {
-    console.log(`Draw!: ${userScore} to ${computerScore}`)
-  }
-  
-}
+// Logic to determine winner of round
 
 function playRound(playerSelection, computerSelection) {
-console.log(`playerSelection = ${playerSelection} computerSelection = ${computerSelection}`);
+
     if (
       playerSelection === 'rock' && computerSelection === 'scissors'
       || 
@@ -90,7 +87,6 @@ console.log(`playerSelection = ${playerSelection} computerSelection = ${computer
         'userScore': 0, 
         'computerScore': 0};
     } 
-    return;
 }
 
 function getComputerChoice() {

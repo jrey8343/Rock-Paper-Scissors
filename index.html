@@ -7,12 +7,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
-  <button data-key="rock">rock</button>
-  <button data-key="paper">paper</button>
-  <button data-key="scissors">scissors</button>
+  <div class="game">
+    <h1>Lets Play: Rock, Paper, Scissors!</h1>
+    <h3 id="game-status">Make a selection...</h3>
+    <div class="user-select">
+      <button data-key="rock">Rock</button>
+      <button data-key="paper">Paper</button>
+      <button data-key="scissors">Scissors</button>
+    </div>
+    <div class="scoreboard">
+      <div class="container">
+        <h3>Current Round:</h3>
+        <p id="round"></p>
+      </div>
+      <div class="container">
+        <h3>User Score:</h3>
+        <p id="user-score"></p>
+      </div>
+      <div class="container">
+        <h3>Computer Score:</h3>
+        <p id="computer-score"></p>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
