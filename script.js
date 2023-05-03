@@ -9,26 +9,37 @@
 // 7. Use string methods to allow caSE inseNsitive inout to userSelection
 // 
 
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+  button.addEventListener('click', (event) => {
+    playRound(event.target.innerText, getComputerChoice());
+  });
+});
+
 game();
 
 function game() {
+
   let currentRound = 0;
   let userScore = 0;
   let computerScore = 0;
   let result;
-    for (i = 0; i < 5; i++) {
-      result = playRound(getComputerChoice());
-      currentRound++;
-      userScore += result.userScore;
-      computerScore += result.computerScore;
+
+
+    // for (i = 0; i < 5; i++) {
+    //   result = playRound(getComputerChoice());
+    //   currentRound++;
+    //   userScore += result.userScore;
+    //   computerScore += result.computerScore;
   
-      console.log(
-        `Current round: ${currentRound} 
-         User score = ${userScore},
-         Computer score = ${computerScore}`)
+    //   console.log(
+    //     `Current round: ${currentRound} 
+    //      User score = ${userScore},
+    //      Computer score = ${computerScore}`)
   
-      alert(result.message);
-    }
+    //   alert(result.message);
+    // }
 
   if (userScore > computerScore) {
     console.log(`User wins!: ${userScore} to ${computerScore}`)
@@ -40,18 +51,8 @@ function game() {
   
 }
 
-function playRound(computerSelection) {
-const options = ['rock', 'paper', 'scissors'];
-
-let playerSelection = prompt('Choose rock, paper or scissors');
-
-//First check that user has entered an option
-if (typeof playerSelection === 'string') {
-  //Convert to lower case
-  playerSelection = playerSelection.toLowerCase();
-  // Check if they have chosen a valid option 'Rock', 'Paper' or 'Scissors'
-  if (options.find(element => element === playerSelection)) {
-    //Now check who won and return an object with a status message, the score for user and computer
+function playRound(playerSelection, computerSelection) {
+console.log(`playerSelection = ${playerSelection} computerSelection = ${computerSelection}`);
     if (
       playerSelection === 'rock' && computerSelection === 'scissors'
       || 
@@ -59,6 +60,7 @@ if (typeof playerSelection === 'string') {
       || 
       playerSelection === 'scissors' && computerSelection === 'rock'
     ) {
+      console.log(`You win! ${playerSelection} beats ${computerSelection}`);
       return {
       'message': `You win! ${playerSelection} beats ${computerSelection}`,
       'userScore': 1, 
@@ -70,6 +72,7 @@ if (typeof playerSelection === 'string') {
         || 
         playerSelection === 'scissors' && computerSelection === 'rock' 
     ) {
+      console.log(`You lose! ${playerSelection} defeated by ${computerSelection}`);
       return {
       'message': `You lose! ${playerSelection} defeated by ${computerSelection}`,
       'userScore': 0, 
@@ -81,27 +84,13 @@ if (typeof playerSelection === 'string') {
         || 
         playerSelection === 'scissors' && computerSelection === 'scissors' 
       ) {
+        console.log(`Draw! ${playerSelection} is equal to ${computerSelection}`);
       return {
         'message': `Draw! ${playerSelection} is equal to ${computerSelection}`,
         'userScore': 0, 
         'computerScore': 0};
     } 
     return;
-  } else {
-    //Return an error if they have not entered a valid selection
-    return {
-      'message': `Error! Please enter rock, paper or scissors`,
-      'userScore': 0, 
-      'computerScore': 0};
-  }
-
-} else {
-  //Return if undefined as user cancelled
-  return {
-    'message': `Error! Input is undefined due to cancelled prompt`,
-    'userScore': 0, 
-    'computerScore': 0};
-}
 }
 
 function getComputerChoice() {
