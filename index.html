@@ -7,27 +7,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="script.js" defer></script>
+  <link rel="stylesheet" href="global.css">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nova+Cut&family=Rock+Salt&family=Rubik+Moonrocks&display=swap"
     rel="stylesheet">
 </head>
 
 <body>
   <div class="game">
-    <h1>Lets Play: Rock, Paper, Scissors!</h1>
-    <h3 id="game-status">Make a selection...</h3>
+    <h1>Rock, Paper, Scissors!</h1>
+    <h3 id="game-status">Choose your element!</h3>
     <div class="user-select">
-      <button data-key="rock">Rock</button>
-      <button data-key="paper">Paper</button>
-      <button data-key="scissors">Scissors</button>
+      <article class="rock">
+        <img src="assets/images/zoltan-tasi-QxjEi8Fs9Hg-unsplash.jpg" alt="A rock in the distance">
+        <p>Rock</p>
+      </article>
+      <article class="paper">
+        <img src="assets/images/sj-objio-XFWiZTa2Ub0-unsplash.jpg" alt="Scrunched up paper">
+        <p>Paper</p>
+      </article>
+      <article class="scissors">
+        <img src="assets/images/alex-gruber-KVsFiYXy0BE-unsplash (1).jpg" alt="Scissors on a blue backdrop">
+        <p>Scissors</p>
+      </article>
     </div>
     <div class="scoreboard">
-      <div class="container">
+      <article class="container">
         <h3>Current Round:</h3>
         <p id="round"></p>
-      </div>
+      </article>
       <div class="container">
         <h3>User Score:</h3>
         <p id="user-score"></p>

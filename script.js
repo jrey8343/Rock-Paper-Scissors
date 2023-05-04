@@ -1,50 +1,54 @@
 // Game memory
 let currentRound = 0;
-let userScore = 0;
-let computerScore = 0;
+let currentUserScore = 0;
+let currentComputerScore = 0;
 
 // DOM Elements
-const buttons = document.querySelectorAll('button');
-const roundDisplay = document.getElementById('round');
-const userDisplay = document.getElementById('user-score');
-const computerDisplay = document.getElementById('computer-score');
+const choices = document.querySelectorAll('article');
+const round = document.getElementById('round');
+const userScore = document.getElementById('user-score');
+const computerScore = document.getElementById('computer-score');
 const gameStatus = document.getElementById('game-status');
 
-// Game
-buttons.forEach((button) => {
-  button.addEventListener('click', (event) => {
-    const result = playRound(event.target.innerText.toLowerCase(), getComputerChoice());
-    currentRound += 1;
-    if (currentRound <= 5) {
-      //Update the stored scores
-      userScore += result.userScore;
-      computerScore += result.computerScore;
-      //Update the DOM to reflect the scores
-      roundDisplay.innerText =  currentRound;
-      userDisplay.innerText = userScore;
-      computerDisplay.innerText = computerScore;
-      gameStatus.innerText = result.message;
-    } else {
-      if (userScore > computerScore) {
-        gameStatus.innerText = 'User wins! Make another selection to play another round!'
-      } else if (userScore < computerScore) {
-        gameStatus.innerText = 'Computer wins :( Make another selection to play another round!'
-      } else {
-        gameStatus.innerText = '5 Round Draw! What an unlikely event!'
-      };
-      //Reset the scores
-      currentRound = 0;
-      userScore = 0;
-      computerScore = 0;
-      //Update the DOM to reflect the scores
-      roundDisplay.innerText =  currentRound;
-      userDisplay.innerText = userScore;
-      computerDisplay.innerText = computerScore;
-      // gameStatus.innerText = 'Lets play another round!';
-    }
-    
+choices.forEach((choice) => {
+  choice.addEventListener('click', game, {
+    capture: true,
   });
 });
+
+// Game Logic
+
+function game(event) {
+  event.stopPropagation();
+  const result = playRound(this.classList.value.toLowerCase(), getComputerChoice());
+  currentRound += 1;
+  if (currentRound <= 5) {
+    //Update the stored scores
+    currentUserScore += result.userScore;
+    currentComputerScore += result.computerScore;
+    //Update the DOM to reflect the scores
+    round.innerText =  currentRound;
+    userScore.innerText = currentUserScore;
+    computerScore.innerText = currentComputerScore;
+    gameStatus.innerText = result.message;
+  } else {
+    if (currentUserScore > currentComputerScore) {
+      gameStatus.innerText = 'User wins! Make another selection to play another round!'
+    } else if (currentUserScore < currentComputerScore) {
+      gameStatus.innerText = 'Computer wins :( Make another selection to play another round!'
+    } else {
+      gameStatus.innerText = '5 Round Draw! What an unlikely event!'
+    };
+    //Reset the scores
+    currentRound = 0;
+    currentUserScore = 0;
+    currentComputerScore = 0;
+    //Update the DOM to reflect the scores
+    round.innerText =  currentRound;
+    userScore.innerText = currentUserScore;
+    computerScore.innerText = currentComputerScore;
+  }
+}
 
 // Logic to determine winner of round
 
